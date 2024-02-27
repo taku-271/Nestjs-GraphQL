@@ -10,7 +10,12 @@
 
 export class CreateTodoInput {
     title: string;
-    user_id: number;
+    userId: number;
+}
+
+export class UpdateTodoInput {
+    id: number;
+    isCompleted: boolean;
 }
 
 export abstract class IQuery {
@@ -25,12 +30,15 @@ export abstract class IQuery {
 
 export abstract class IMutation {
     abstract createTodo(input: CreateTodoInput): Todo | Promise<Todo>;
+
+    abstract updateTodo(input: UpdateTodoInput): Todo | Promise<Todo>;
 }
 
 export class Todo {
     id: number;
     title: string;
-    is_completed: boolean;
+    isCompleted: boolean;
+    userId: number;
 }
 
 export class User {

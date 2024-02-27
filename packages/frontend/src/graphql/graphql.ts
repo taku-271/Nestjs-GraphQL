@@ -19,17 +19,23 @@ export type Scalars = {
 
 export type CreateTodoInput = {
   title: Scalars['String']['input'];
-  user_id: Scalars['Int']['input'];
+  userId: Scalars['Int']['input'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createTodo: Todo;
+  updateTodo: Todo;
 };
 
 
 export type MutationCreateTodoArgs = {
   input: CreateTodoInput;
+};
+
+
+export type MutationUpdateTodoArgs = {
+  input: UpdateTodoInput;
 };
 
 export type Query = {
@@ -53,9 +59,14 @@ export type QueryGetUserByIdArgs = {
 export type Todo = {
   __typename?: 'Todo';
   id: Scalars['Int']['output'];
-  is_completed: Scalars['Boolean']['output'];
+  isCompleted: Scalars['Boolean']['output'];
   title: Scalars['String']['output'];
-  user_id: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
+};
+
+export type UpdateTodoInput = {
+  id: Scalars['Int']['input'];
+  isCompleted: Scalars['Boolean']['input'];
 };
 
 export type User = {
@@ -70,12 +81,19 @@ export type CreateTodoMutationVariables = Exact<{
 }>;
 
 
-export type CreateTodoMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'Todo', id: number, title: string, is_completed: boolean } };
+export type CreateTodoMutation = { __typename?: 'Mutation', createTodo: { __typename?: 'Todo', id: number, title: string, isCompleted: boolean } };
+
+export type UpdateTodoMutationVariables = Exact<{
+  input: UpdateTodoInput;
+}>;
+
+
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo: { __typename?: 'Todo', id: number, isCompleted: boolean } };
 
 export type GetTodosQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTodosQuery = { __typename?: 'Query', getTodos: Array<{ __typename?: 'Todo', id: number, title: string, is_completed: boolean }> };
+export type GetTodosQuery = { __typename?: 'Query', getTodos: Array<{ __typename?: 'Todo', id: number, title: string, isCompleted: boolean }> };
 
 
 export const CreateTodoDocument = gql`
@@ -83,7 +101,15 @@ export const CreateTodoDocument = gql`
   createTodo(input: $input) {
     id
     title
-    is_completed
+    isCompleted
+  }
+}
+    `;
+export const UpdateTodoDocument = gql`
+    mutation updateTodo($input: UpdateTodoInput!) {
+  updateTodo(input: $input) {
+    id
+    isCompleted
   }
 }
     `;
@@ -92,7 +118,7 @@ export const GetTodosDocument = gql`
   getTodos {
     id
     title
-    is_completed
+    isCompleted
   }
 }
     `;
@@ -106,6 +132,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     createTodo(variables: CreateTodoMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateTodoMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateTodoMutation>(CreateTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createTodo', 'mutation', variables);
+    },
+    updateTodo(variables: UpdateTodoMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateTodoMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateTodoMutation>(UpdateTodoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateTodo', 'mutation', variables);
     },
     getTodos(variables?: GetTodosQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetTodosQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetTodosQuery>(GetTodosDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTodos', 'query', variables);

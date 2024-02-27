@@ -1,4 +1,4 @@
-import { useCreateTodoMutation } from "./mutate";
+import { useCreateTodoMutation, useUpdateTodoMutation } from "./mutate";
 import { useGetTodosQuery } from "./query";
 
 export const useGetTodos = () => {
@@ -19,4 +19,14 @@ export const useCreateTodo = () => {
   }
 
   return { createTodo: mutateFunction, createTodoLoading: loading };
+};
+
+export const useUpdateTodo = () => {
+  const [mutateFunction, { loading, error }] = useUpdateTodoMutation();
+
+  if (error) {
+    throw error;
+  }
+
+  return { updateTodo: mutateFunction, updateTodoLoading: loading };
 };

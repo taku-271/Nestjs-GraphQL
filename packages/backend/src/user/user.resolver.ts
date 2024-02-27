@@ -1,14 +1,20 @@
 import { TodoDataLoader } from './../todo/todo.dataloader';
 import { UserService } from './user.service';
 import { Resolver, Query, Args, ResolveField, Parent } from '@nestjs/graphql';
+// import { QueryResolvers, User } from 'src/graphql/graphql';
 import { User } from 'src/graphql/graphql';
-import { TodoService } from 'src/todo/todo.service';
+
+// abstract class IUserResolvers implements QueryResolvers {
+//   abstract getUsers: QueryResolvers['getUsers'];
+//   abstract getUserById: QueryResolvers['getUserById'];
+//   abstract getTodos: QueryResolvers['getTodos'];
+// }
 
 @Resolver('User')
+// export class UserResolver implements IUserResolvers {
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
-    private readonly todoService: TodoService,
     private readonly todoDataLoader: TodoDataLoader,
   ) {}
 
@@ -24,6 +30,6 @@ export class UserResolver {
 
   @ResolveField('todo')
   async getTodos(@Parent() user: User) {
-    return this.todoDataLoader.load(user.id);
+    return await this.todoDataLoader.load(user.id);
   }
 }

@@ -7,13 +7,14 @@ type Query {
 
 type Mutation {
   createTodo(input: CreateTodoInput!): Todo!
+  updateTodo(input: UpdateTodoInput!): Todo!
 }
 
 type Todo {
   id: Int!
   title: String!
-  is_completed: Boolean!
-  user_id: Int!
+  isCompleted: Boolean!
+  userId: Int!
 }
 
 type User {
@@ -24,5 +25,10 @@ type User {
 
 input CreateTodoInput {
   title: String!
-  user_id: Int!
+  userId: Int!
+}
+
+input UpdateTodoInput {
+  id: Int!
+  isCompleted: Boolean!
 }

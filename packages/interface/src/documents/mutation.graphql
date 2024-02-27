@@ -2,6 +2,13 @@ mutation createTodo($input: CreateTodoInput!) {
   createTodo(input: $input) {
     id
     title
-    is_completed
+    isCompleted
+  }
+}
+
+mutation updateTodo($input: UpdateTodoInput!) {
+  updateTodo(input: $input) {
+    id
+    isCompleted
   }
 }

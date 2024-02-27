@@ -1,13 +1,15 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TodoService } from './todo.service';
-import { CreateTodoInput, QueryResolvers } from 'src/graphql/graphql';
+import {
+  CreateTodoInput,
+  QueryResolvers,
+  UpdateTodoInput,
+} from 'src/graphql/graphql';
 
 abstract class ITodoResolvers implements QueryResolvers {
   abstract getTodos: QueryResolvers['getTodos'];
   abstract getTodoById: QueryResolvers['getTodoById'];
 }
-
-// const getTodoById: QueryResolvers['getTodoById'] = (source, args, context) => {};
 
 @Resolver('Todo')
 export class TodoResolvers implements ITodoResolvers {
@@ -15,16 +17,21 @@ export class TodoResolvers implements ITodoResolvers {
 
   @Query('getTodos')
   async getTodos() {
-    return this.todoService.getTodos();
+    return await this.todoService.getTodos();
   }
 
   @Query('getTodoById')
   async getTodoById(@Args('id') id: number) {
-    return this.todoService.getTodoById(id);
+    return await this.todoService.getTodoById(id);
   }
 
   @Mutation('createTodo')
   async createTodo(@Args('input') input: CreateTodoInput) {
-    return this.todoService.createTodo(input);
+    return await this.todoService.createTodo(input);
+  }
+
+  @Mutation('updateTodo')
+  async updateTodo(@Args('input') input: UpdateTodoInput) {
+    return await this.todoService.updateTodo(input);
   }
 }

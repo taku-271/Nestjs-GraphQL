@@ -19,17 +19,23 @@ export type Scalars = {
 
 export type CreateTodoInput = {
   title: Scalars['String']['input'];
-  user_id: Scalars['Int']['input'];
+  userId: Scalars['Int']['input'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createTodo: Todo;
+  updateTodo: Todo;
 };
 
 
 export type MutationCreateTodoArgs = {
   input: CreateTodoInput;
+};
+
+
+export type MutationUpdateTodoArgs = {
+  input: UpdateTodoInput;
 };
 
 export type Query = {
@@ -53,9 +59,14 @@ export type QueryGetUserByIdArgs = {
 export type Todo = {
   __typename?: 'Todo';
   id: Scalars['Int']['output'];
-  is_completed: Scalars['Boolean']['output'];
+  isCompleted: Scalars['Boolean']['output'];
   title: Scalars['String']['output'];
-  user_id: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
+};
+
+export type UpdateTodoInput = {
+  id: Scalars['Int']['input'];
+  isCompleted: Scalars['Boolean']['input'];
 };
 
 export type User = {
@@ -144,6 +155,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Todo: ResolverTypeWrapper<Todo>;
+  UpdateTodoInput: UpdateTodoInput;
   User: ResolverTypeWrapper<User>;
 }>;
 
@@ -156,11 +168,13 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   String: Scalars['String']['output'];
   Todo: Todo;
+  UpdateTodoInput: UpdateTodoInput;
   User: User;
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationCreateTodoArgs, 'input'>>;
+  updateTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationUpdateTodoArgs, 'input'>>;
 }>;
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
@@ -172,9 +186,9 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 
 export type TodoResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = ResolversObject<{
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  is_completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isCompleted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  user_id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

@@ -13,7 +13,7 @@ export class TodoDataLoader extends BaseDataLoader<number, Todo[]> {
     const todos = await this.todoService.getTodosByUserIds(userIds);
 
     const mappedTodosList = userIds.map((userId) => {
-      const mappedTodos = todos.filter((todo) => todo.user_id === userId);
+      const mappedTodos = todos.filter((todo) => todo.userId === userId);
 
       return mappedTodos;
     });

@@ -9,7 +9,7 @@ const TodoCreate = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    createTodo({ variables: { input: { title } } });
+    createTodo({ variables: { input: { userId: 1, title } } });
   };
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
