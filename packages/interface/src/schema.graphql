@@ -1,0 +1,28 @@
+type Query {
+  getTodos: [Todo!]!
+  getTodoById(id: Int!): Todo
+  getUsers: [User!]!
+  getUserById(id: Int!): User
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!): Todo!
+}
+
+type Todo {
+  id: Int!
+  title: String!
+  is_completed: Boolean!
+  user_id: Int!
+}
+
+type User {
+  id: Int!
+  name: String!
+  todo: [Todo!]!
+}
+
+input CreateTodoInput {
+  title: String!
+  user_id: Int!
+}

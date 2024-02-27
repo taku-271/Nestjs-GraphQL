@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "dev": "run-p dev:",
+    "dev:copy": "cpx src/schema.graphql ../backend/src -w",
+    "dev:codegen": "graphql-codegen --watch"
+  },
+  "dependencies": {
+    "@graphql-codegen/add": "^5.0.2",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.2",
+    "@graphql-codegen/typescript": "^4.0.4",
+    "@graphql-codegen/typescript-graphql-request": "^6.2.0",
+    "@graphql-codegen/typescript-operations": "^4.1.2",
+    "@graphql-codegen/typescript-react-query": "^6.1.0",
+    "@graphql-codegen/typescript-resolvers": "^4.0.4",
+    "@parcel/watcher": "^2.4.0",
+    "cpx2": "^7.0.1"
+  }
+}
